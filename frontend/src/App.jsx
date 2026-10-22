@@ -1,4 +1,17 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faBookOpen,
+  faCircleCheck,
+  faEnvelope,
+  faFilter,
+  faMagnifyingGlass,
+  faSchool,
+  faTrash,
+  faUserGraduate,
+  faUserPen,
+  faUsers,
+} from '@fortawesome/free-solid-svg-icons';
 import { api } from './api';
 
 const emptyStudent = () => ({
@@ -137,12 +150,18 @@ export default function App() {
         </div>
 
         <nav className="menu">
-          <a href="#dashboard">Dashboard</a>
-          <a href="#students">Estudiantes</a>
+          <a href="#dashboard">
+            <FontAwesomeIcon icon={faSchool} />
+            <span>Dashboard</span>
+          </a>
+          <a href="#students">
+            <FontAwesomeIcon icon={faUsers} />
+            <span>Estudiantes</span>
+          </a>
         </nav>
 
         <div className="side-card">
-          <strong>Stack</strong>
+          <strong><FontAwesomeIcon icon={faBookOpen} /> Stack</strong>
           <span>React + Spring Boot + MongoDB</span>
         </div>
       </aside>
@@ -154,8 +173,8 @@ export default function App() {
             <h1>IA School</h1>
           </div>
           <div className="topbar-badges">
-            <span>API {busy ? 'trabajando' : 'lista'}</span>
-            <span>Mongo conectado</span>
+            <span><FontAwesomeIcon icon={faCircleCheck} /> API {busy ? 'trabajando' : 'lista'}</span>
+            <span><FontAwesomeIcon icon={faEnvelope} /> Mongo conectado</span>
           </div>
         </header>
 
@@ -184,30 +203,30 @@ export default function App() {
 
             <form className="form" onSubmit={onSubmit}>
               <label>
-                <span>Código</span>
+                <span><FontAwesomeIcon icon={faUserPen} /> Código</span>
                 <input value={form.studentCode} onChange={(e) => updateField('studentCode', e.target.value)} required placeholder="IA-001" />
               </label>
               <label>
-                <span>Nombre completo</span>
+                <span><FontAwesomeIcon icon={faUserGraduate} /> Nombre completo</span>
                 <input value={form.fullName} onChange={(e) => updateField('fullName', e.target.value)} required placeholder="Nombre del estudiante" />
               </label>
               <label>
-                <span>Email</span>
+                <span><FontAwesomeIcon icon={faEnvelope} /> Email</span>
                 <input type="email" value={form.email} onChange={(e) => updateField('email', e.target.value)} required placeholder="correo@iaschool.mx" />
               </label>
               <div className="two-cols">
                 <label>
-                  <span>Programa</span>
+                  <span><FontAwesomeIcon icon={faBookOpen} /> Programa</span>
                   <input value={form.program} onChange={(e) => updateField('program', e.target.value)} required placeholder="Ingeniería de IA" />
                 </label>
                 <label>
-                  <span>Grupo</span>
+                  <span><FontAwesomeIcon icon={faUsers} /> Grupo</span>
                   <input value={form.groupName} onChange={(e) => updateField('groupName', e.target.value)} required placeholder="1A" />
                 </label>
               </div>
               <div className="two-cols">
                 <label>
-                  <span>Estatus</span>
+                  <span><FontAwesomeIcon icon={faCircleCheck} /> Estatus</span>
                   <select value={form.status} onChange={(e) => updateField('status', e.target.value)}>
                     <option>Activo</option>
                     <option>Inactivo</option>
@@ -215,18 +234,18 @@ export default function App() {
                   </select>
                 </label>
                 <label>
-                  <span>Asesor</span>
+                  <span><FontAwesomeIcon icon={faUserPen} /> Asesor</span>
                   <input value={form.advisor} onChange={(e) => updateField('advisor', e.target.value)} placeholder="Nombre del asesor" />
                 </label>
               </div>
               <label>
-                <span>Notas</span>
+                <span><FontAwesomeIcon icon={faBookOpen} /> Notas</span>
                 <textarea rows="3" value={form.notes} onChange={(e) => updateField('notes', e.target.value)} placeholder="Observaciones"></textarea>
               </label>
 
               <div className="actions">
-                <button className="primary" type="submit" disabled={busy}>{editingId ? 'Actualizar' : 'Guardar'}</button>
-                <button className="ghost" type="button" onClick={resetForm}>Limpiar</button>
+                <button className="primary" type="submit" disabled={busy}><FontAwesomeIcon icon={faCircleCheck} /> {editingId ? 'Actualizar' : 'Guardar'}</button>
+                <button className="ghost" type="button" onClick={resetForm}><FontAwesomeIcon icon={faFilter} /> Limpiar</button>
               </div>
             </form>
 
@@ -241,11 +260,11 @@ export default function App() {
 
             <div className="filters">
               <label>
-                <span>Buscar</span>
+                <span><FontAwesomeIcon icon={faMagnifyingGlass} /> Buscar</span>
                 <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Código, nombre, email o programa" />
               </label>
               <label>
-                <span>Filtrar por estado</span>
+                <span><FontAwesomeIcon icon={faFilter} /> Filtrar por estado</span>
                 <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
                   {statusOptions.map((option) => <option key={option} value={option}>{option}</option>)}
                 </select>
@@ -269,7 +288,7 @@ export default function App() {
                     <tr key={student.id}>
                       <td>{student.studentCode}</td>
                       <td>
-                        <strong>{student.fullName}</strong>
+                        <strong><FontAwesomeIcon icon={faUserGraduate} /> {student.fullName}</strong>
                         <div className="muted">{student.email}</div>
                       </td>
                       <td>{student.program}</td>
@@ -277,8 +296,8 @@ export default function App() {
                       <td>{student.groupName}</td>
                       <td>
                         <div className="row-actions">
-                          <button type="button" className="link" onClick={() => edit(student)}>Editar</button>
-                          <button type="button" className="link danger" onClick={() => remove(student)}>Eliminar</button>
+                          <button type="button" className="link" onClick={() => edit(student)}><FontAwesomeIcon icon={faUserPen} /> Editar</button>
+                          <button type="button" className="link danger" onClick={() => remove(student)}><FontAwesomeIcon icon={faTrash} /> Eliminar</button>
                         </div>
                       </td>
                     </tr>
@@ -296,13 +315,13 @@ export default function App() {
 
         <section className="card recent-card">
           <div className="card-head">
-            <h3>Recientes</h3>
+            <h3><FontAwesomeIcon icon={faSchool} /> Recientes</h3>
             <span>Últimos cambios</span>
           </div>
           <div className="recent-list">
             {(summary?.recentStudents || []).map((student) => (
               <div className="recent-item" key={student.id}>
-                <strong>{student.fullName}</strong>
+                <strong><FontAwesomeIcon icon={faUserGraduate} /> {student.fullName}</strong>
                 <span>{student.studentCode} · {student.program} · {student.status}</span>
               </div>
             ))}
