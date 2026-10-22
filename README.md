@@ -24,3 +24,7 @@ Entidad principal: `Student`
 - eliminación
 - búsqueda y filtros
 - resumen conectado al backend
+
+## Deploy live
+- Frontend público: `http://136.64.180.12:4202/`
+
