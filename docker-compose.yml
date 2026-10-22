@@ -1,0 +1,33 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: ia-school-mongo
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build:
+      context: ./backend
+    container_name: ia-school-backend
+    restart: unless-stopped
+    environment:
+      SERVER_PORT: 8080
+      SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/iaschool
+    depends_on:
+      - mongo
+    ports:
+      - "127.0.0.1:8082:8080"
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: ia-school-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "4202:80"
+
+volumes:
+  mongo_data:
